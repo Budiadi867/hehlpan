@@ -1,33 +1,3 @@
-<?php
-// landing.php - Dynamic Landing Page
-$dataFile = 'data.json'; // File untuk menyimpan data konten
-$u = $_GET['u'];
-$track = $_GET['track'];
-$subSource = $_GET['subSource'];
-$encoded_url = urlencode(base64_encode("u.php?u=$u&track=$track&subSource=$subSource"));
-// Ambil ID unik dari URL
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-
-if ($id && file_exists($dataFile)) {
-    // Baca data dari file JSON
-    $allData = json_decode(file_get_contents($dataFile), true);
-
-    // Cari data berdasarkan ID unik
-    if (isset($allData[$id])) {
-        $content = $allData[$id];
-    } else {
-        $content = null; // Data tidak ditemukan
-    }
-} else {
-    $content = null; // ID tidak valid atau file tidak ada
-}
-
-// Jika data tidak ditemukan, tampilkan pesan error
-if (!$content) {
-    http_response_code(404);
-    die("<h1>Page Not Found</h1>");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
